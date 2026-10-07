@@ -1,0 +1,184 @@
+# 环评导则适用性核对 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ⚠️⚠️ 本规则库的诚实说明：**excerpt 一律不是引文。**
+#   本插件核对的是"环境影响评价导则适用性核对表"的**齐备与可追溯**：
+#     评价要素是否填写、是否指明适用导则名称与编号、导则现行状态是否在册、
+#     评价方法与执行标准是否填写、评价范围与因子是否记录、
+#     要素是否重复登记、是否残留模板占位符。
+#   其规范载体是**《环境影响评价技术导则》系列（HJ 2.1 总纲、HJ 2.2 大气、HJ 2.3 地表水、
+#   HJ 2.4 声环境、HJ 964 土壤、HJ 19 生态影响等）**与《建设项目环境影响评价分类管理名录》。
+#   **核查未取得这些导则的逐字条文，也未逐一核实各导则的现行版本号**，
+#   故每条 excerpt 如实写明，kind 降为 derived-from-principle（封顶 warn）。
+#
+# ⚠️⚠️ 另一条**必须保留**的边界：**本插件绝不判定环评文件是否合规、
+#   评价等级划分是否正确、预测模式是否适用、结论是否成立**。
+#   那需要环评工程师与审批部门依法审查，也是环评工作的实质内容。
+#   → **本插件不内置导则清单**：它没有能力把"评价要素"映射到"应当适用哪本导则"，
+#     也**不试图做这件事**。"适用导则"栏是台账自己写的，本插件只核对它是否写了、写了什么状态。
+#   → 因此它**发现不了"该用 HJ 2.3 却用了别的导则"** —— 这是本插件最重要的能力边界。
+#   → **导则编号格式（guideCodePattern）与现行状态取值（guideStatusValues）都出厂为空。**
+
+plugin: dsh-eia-guide-check
+version: "2026.1"
+
+rules:
+  - id: EG-001
+    title: 每条要素都应指明适用导则
+    severity: warn
+    basis:
+      document: 《环境影响评价技术导则》系列
+      number: 各导则现行版本号本次未逐一核实
+      clause: 关于评价导则适用的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: presenceAny
+          fields: ["guideName","guideCode"]
+          fix: 补填适用导则名称与编号；本条只核对是否指明，不判断适用是否正确
+    note: >-
+      "某个环境要素依据哪本导则评价"是环评工作的**第一个追溯点**：
+      不写明，评审与复核都无从判断方法是否正确。
+      本次未取得明文条号，故封顶 warn。
+      ⚠️ **本条只核对"是否指明"，不核对"指明得对不对"** ——
+      把某个要素映射到应当适用的导则需要查阅名录与各导则的适用范围，
+      **本插件不内置导则清单，也不做这个映射**。
+
+  - id: EG-002
+    title: 导则编号应符合本机构配置的形式
+    severity: warn
+    basis:
+      document: 《环境影响评价技术导则》系列
+      number: 各导则现行版本号本次未逐一核实
+      clause: 关于导则编号的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: pattern
+          field: guideCode
+          pattern: ^HJ\s?[0-9]+(\.[0-9]+)?[-—][0-9]{4}$
+          fix: 导则编号应写成 HJ 2.3—2018 这样的形式
+    note: >-
+      导则编号是**可复核的定位符**：写法不规范，就无法在标准文本中定位到具体版本。
+      本条按"HJ 数字（可带小数）—四位年份"的形式核对；本次未取得明文条号，故封顶 warn。
+      ⚠️ 本条**只核对形式**，**不核对编号是否真实存在、是否现行有效**，
+      也**不核对是否与所填名称对应** —— 名号是否匹配需要查标准目录，本插件不做。
+      若本机构台账使用其它写法，改 pattern 即可。
+
+  - id: EG-003
+    title: 导则现行状态应使用本机构口径的取值
+    severity: info
+    basis:
+      document: 本机构环评质量管理口径（本机构配置）
+      number: 无统一标准（本条依据为本机构配置的状态口径）
+      clause: 关于导则版本状态的条款（本次未取得条号）
+      excerpt: 本条依据为本机构配置的口径，不存在可引用的标准条文；本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: enum
+          field: guideStatus
+          values: []
+    note: >-
+      values 出厂为空，表示**未配置**，本条进 skipped。
+      依据说明：导则状态的口径（例如「现行」「已废止」「被替代」「部分适用」）
+      随**本机构质量管理口径**变化，本插件**不硬编码任何取值清单**，
+      也**不内置各导则的现行版本表**（那需要持续跟踪生态环境部的发布与废止公告）。
+      本条只核对所填值是否在册，**不判断该导则是否真的现行有效**。
+
+  - id: EG-004
+    title: 每条要素都应填写评价方法与执行标准
+    severity: warn
+    basis:
+      document: 《环境影响评价技术导则 总纲》
+      number: HJ 2.1（现行版本号与条号本次未核实）
+      clause: 关于评价方法与标准依据的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: presenceAny
+          fields: ["method","standard"]
+          fix: 补填评价方法与执行标准；本条只核对是否填写，不判断方法是否适用
+    note: >-
+      评价方法与执行标准是环评结论的**两个支撑点**：缺其一，
+      预测结果与达标判断都没有依据。本次未取得明文条号，故封顶 warn。
+      本条只核对"至少填了一个"，**不判断该方法是否适用、该标准是否正确**。
+
+  - id: EG-005
+    title: 评价要素不应在表内重复登记
+    severity: warn
+    basis:
+      document: 《环境影响评价技术导则 总纲》
+      number: HJ 2.1（现行版本号与条号本次未核实）
+      clause: 关于评价要素识别的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: unique
+          field: element
+    note: >-
+      同一评价要素重复登记，会让人无法判断该要素到底按哪一本导则评价，
+      也可能意味着适用导则前后不一致。本次未取得明文条号，故封顶 warn。
+      ⚠️ 本条**命中需要人工确认**：同一要素分环境介质（如"地表水"下分水质与底泥）
+      分别评价是常见的，此时应在要素名称里写清子项，而不是简单删除。
+
+  - id: EG-006
+    title: 核对表应声明项目与环评文件类型
+    severity: warn
+    basis:
+      document: 《建设项目环境影响评价分类管理名录》
+      number: 现行版本与条号本次未核实
+      clause: 关于环评文件类型的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: headerPresence
+          fields: ["project","reportType"]
+    note: >-
+      核对表若不写明项目与环评文件类型（报告书／报告表／登记表），
+      导则适用性与评价等级就无从判断——**因为类型决定了适用哪一套要求**。
+      本次未取得明文条号，故封顶 warn。
+      配置项 project 对应材料表头的项目名称，reportType 对应环评文件类型。
+      ⚠️ 本条只核对表头是否声明，**不判断该类型划分是否正确**。
+
+  - id: EG-007
+    title: 执行标准栏不应残留未替换的占位符
+    severity: warn
+    basis:
+      document: 《环境影响评价技术导则 总纲》
+      number: HJ 2.1（现行版本号与条号本次未核实）
+      clause: 关于执行标准的条款（本次未取得条号）
+      excerpt: 该条文本次未取得：核查未获得该文件的逐字原文，本规则库不伪造引文。
+      kind: derived-from-principle
+      source: https://www.mee.gov.cn/
+    params:
+        check:
+          kind: containsAny
+          field: standard
+          terms: ["【","】","{{","}}","XXX","xxx","待填","待补充","TBD","todo","示例"]
+          fix: 执行标准应填写实际标准号；残留占位符说明核对表是照模板抄的
+    note: >-
+      核对表常由模板复制而来，执行标准栏留下【】、XXX、待填、TBD 之类占位符时，
+      会让人误以为已经查了标准 —— **而没有标准的达标判断是没有意义的**。
+      本次未取得明文条号，故封顶 warn。terms 可按本机构模板调整。
+
+disabled: []

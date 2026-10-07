@@ -1,0 +1,43 @@
+import { describeTablePlugin } from './table-plugin-suite.ts'
+import { Config } from '../src/config.ts'
+import { parseMaterial, runCheck, SPEC } from '../src/model.ts'
+import { buildView } from '../src/view.ts'
+import { inject, name, resolvePackageFile, TOOL_NAME } from '../src/index.ts'
+
+describeTablePlugin({
+  name,
+  inject,
+  TOOL_NAME,
+  resolvePackageFile,
+  Config,
+  rulesFile: 'rules/eia-guide-check.yaml',
+  parseMaterial,
+  runCheck,
+  buildView,
+  columnNames: SPEC.columns,
+  samples: {
+    good: {
+          "project": "某某建设项目",
+          "industry": "某某行业",
+          "reportType": "报告书",
+          "compiler": "某某环评单位",
+          "rows": [
+                {
+                      "序号": "1",
+                      "评价要素": "环境空气",
+                      "导则名称": "环境影响评价技术导则 大气环境",
+                      "导则编号代码": "HJ 2.2—2018",
+                      "导则状态": "现行",
+                      "应用章节": "第 5 章 大气环境影响预测与评价",
+                      "评价方法": "AERMOD 预测模式",
+                      "现状监测": "引用 2025 年自动监测站数据",
+                      "评价范围": "二级评价，边长 5 km 矩形",
+                      "评价因子": "PM10、PM2.5、SO2、NOx",
+                      "执行标准": "GB 3095—2012 环境空气质量标准",
+                      "校核人": "张工"
+                }
+          ]
+    },
+    unknownColumn: { rows: [{ 备注: '甲' }] },
+  },
+})

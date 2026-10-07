@@ -1,0 +1,31 @@
+{
+  "ruleId": "EG-003",
+  "configure": {
+    "EG-003": {
+      "values": [
+        "现行",
+        "已废止",
+        "被替代",
+        "部分适用"
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "EG-003-compliant.json",
+      "expect": {
+        "ruleId": "EG-003",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "EG-003-unsafe.json",
+      "expect": {
+        "ruleId": "EG-003",
+        "count": 1
+      }
+    }
+  ]
+}
