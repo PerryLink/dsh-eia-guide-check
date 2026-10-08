@@ -44,8 +44,7 @@ prediction model applies, or whether the conclusions hold.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-eia-guide-check
 dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 ```
 
