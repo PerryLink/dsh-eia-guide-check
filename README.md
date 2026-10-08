@@ -1,4 +1,26 @@
-# dsh-eia-guide-check
+# dsh-eia-guide-check — Environmental impact assessment guideline applicability sheet check
+
+`dsh-eia-guide-check` reads one guideline-applicability sheet for an environmental impact assessment — the project header plus one row per assessed element — and checks that sheet's own traceability: that every element names its applicable guideline, that the guideline number follows the published form, that the guideline's status comes from the vocabulary you configure, that an assessment method or an applicable standard is recorded, that no element is registered twice, that the header declares the project and the report type, and that no unreplaced template placeholder survives in the standard column.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| One element row leaves both the guideline name and the guideline number blank. Is that reported? | Yes. `EG-001` reports the row when `guideName` and `guideCode` are both empty, because the row has to name at least one of them. It checks only whether a guideline is named, never whether the named guideline is the right one for that element: the plugin holds no guideline catalogue and does not map an element onto a guideline. |
+| The guideline number is written as `HJ 2.3`, with no year. Is that caught? | Yes. `EG-002` checks the form `HJ <number>—<four-digit year>`, as in `HJ 2.3—2018`, so a value without the four-digit year does not match and is reported row by row. It checks the form only: not whether the number exists, not whether it is current, and not whether it matches the name beside it. A blank `guideCode` cell is left alone — empty values stay outside this form check. |
+| The status column says `现行`. Why was it never checked? | Because `EG-003`'s `values` list ships empty, meaning the status vocabulary is not configured yet: the rule reports itself in `skipped`, with the reason that this vocabulary is the institution's own, rather than passing silently. Once configured, it checks only whether the filled value is on that list — not whether the guideline is really in force. |
+| The assessment method is filled in, but the standard column still reads `【待填】`. Is that caught? | `EG-004` requires only that one of `method` or `standard` is filled, so a filled method satisfies it; it does not judge whether the method applies or the standard is correct. The leftover placeholder is caught by `EG-007`, which reports the first configured term it finds in the standard column (`【`, `】`, `XXX`, `待填`, `TBD`, `示例` and similar). Those terms are adjustable, and a wholly empty standard cell is reported by neither rule. |
+| `地表水` is registered twice, once for water quality and once for sediment. What happens? | `EG-005` reports the repeated `element` value and names the earlier row it matches, because a duplicate makes it impossible to tell which guideline governs that element. It compares the text with whitespace removed only, and the finding needs human confirmation: assessing one element by medium is normal, so write the sub-item into the element name instead of deleting the row. With no `element` column the rule reports that it could not run rather than passing silently. |
+| The header carries no project name and no report type. What happens? | `EG-006` reports the header as missing `project` and `reportType`, because the report type (`报告书`／`报告表`／`登记表`) decides which set of requirements applies. It checks only that the header declares them; it does not judge whether the type was classified correctly. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 《环境影响评价技术导则》系列 | 各导则现行版本号本次未逐一核实 | EG-001, EG-002 |
+| 本机构环评质量管理口径（本机构配置） | 无统一标准（本条依据为本机构配置的状态口径） | EG-003 |
+| 《环境影响评价技术导则 总纲》 | HJ 2.1（现行版本号与条号本次未核实） | EG-004, EG-005, EG-007 |
+| 《建设项目环境影响评价分类管理名录》 | 现行版本与条号本次未核实 | EG-006 |
 
 **Boundary:** this plugin checks an **环评导则适用性核对表** for traceability — that each environmental element
 names its applicable guideline, that the guideline number follows its published form, that the guideline's status

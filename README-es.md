@@ -1,4 +1,26 @@
-# dsh-eia-guide-check
+# dsh-eia-guide-check — Verificación de la hoja de aplicabilidad de directrices de evaluación de impacto ambiental
+
+`dsh-eia-guide-check` lee una hoja de aplicabilidad de directrices de una evaluación de impacto ambiental —la cabecera del proyecto más una fila por elemento evaluado— y comprueba la trazabilidad de esa propia hoja: que cada elemento indique la directriz que le aplica, que el número de la directriz siga la forma publicada, que el estado de la directriz proceda del vocabulario que usted configure, que se registre un método de evaluación o una norma aplicable, que ningún elemento esté registrado dos veces, que la cabecera declare el proyecto y el tipo de documento de evaluación, y que no quede ningún marcador de plantilla sin sustituir en la columna de la norma aplicable.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| Una fila de elemento deja vacíos el nombre y el número de la directriz. ¿Se informa de ello? | Sí. `EG-001` informa de esa fila cuando `guideName` y `guideCode` están ambos vacíos, porque la fila debe indicar al menos uno de los dos. Solo comprueba que se indique una directriz, nunca si es la correcta para ese elemento: el plugin no incluye ningún catálogo de directrices ni asigna elementos a directrices. |
+| El número de la directriz figura como `HJ 2.3`, sin año. ¿Se detecta? | Sí. `EG-002` comprueba la forma «HJ número—año de cuatro cifras», como en `HJ 2.3—2018`, así que un valor sin el año de cuatro cifras no coincide y se informa fila por fila. Solo comprueba la forma: no que el número exista, no que esté vigente y no que corresponda al nombre que figura al lado. Una celda `guideCode` vacía no se informa aquí: los valores vacíos quedan fuera de esta comprobación de forma. |
+| La columna de estado dice `现行`. ¿Por qué no se ha comprobado nunca? | Porque la lista `values` de `EG-003` viene vacía, es decir, el vocabulario de estados aún no está configurado: la regla se declara a sí misma en `skipped`, con el motivo de que ese vocabulario es propio de la institución, en lugar de pasar en silencio. Una vez configurado, solo comprueba que el valor relleno figure en la lista, no que la directriz esté realmente vigente. |
+| El método de evaluación está puesto, pero la columna de la norma aún dice `【待填】`. ¿Se detecta? | `EG-004` solo exige que esté relleno uno de los dos, `method` o `standard`, así que un método relleno la satisface; no juzga si el método es aplicable ni si la norma es correcta. El marcador que queda lo informa `EG-007`, que busca en la columna de la norma los términos configurados (`【`, `】`, `XXX`, `待填`, `TBD`, `示例` y similares) e informa del primero que encuentra. Esos términos son ajustables, y una celda de norma totalmente vacía no la informa ninguna de las dos reglas. |
+| El elemento `地表水` está registrado dos veces, una por calidad del agua y otra por sedimentos. ¿Qué ocurre? | `EG-005` informa del valor repetido de `element` e indica con qué fila anterior coincide, porque la repetición impide saber qué directriz rige ese elemento. Compara solo el texto sin espacios y el hallazgo requiere confirmación humana: evaluar un mismo elemento por medio es habitual, así que escriba el subelemento en el nombre del elemento en vez de borrar la fila. Si la hoja no tiene columna `element`, la regla informa de que no pudo ejecutarse en lugar de pasar en silencio. |
+| La cabecera no trae el nombre del proyecto ni el tipo de documento de evaluación. ¿Qué ocurre? | `EG-006` informa de que a la cabecera le faltan `project` y `reportType`, porque el tipo de documento (`报告书`／`报告表`／`登记表`) determina qué conjunto de requisitos se aplica. Solo comprueba que la cabecera los declare; no juzga si la clasificación del tipo es correcta. |
+
+## Normas que sigue
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| 《环境影响评价技术导则》系列 | 各导则现行版本号本次未逐一核实 | EG-001, EG-002 |
+| 本机构环评质量管理口径（本机构配置） | 无统一标准（本条依据为本机构配置的状态口径） | EG-003 |
+| 《环境影响评价技术导则 总纲》 | HJ 2.1（现行版本号与条号本次未核实） | EG-004, EG-005, EG-007 |
+| 《建设项目环境影响评价分类管理名录》 | 现行版本与条号本次未核实 | EG-006 |
 
 **Boundary:** this plugin checks an **环评导则适用性核对表** for traceability — that each environmental element
 names its applicable guideline, that the guideline number follows its published form, that the guideline's status

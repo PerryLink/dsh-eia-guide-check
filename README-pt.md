@@ -1,4 +1,26 @@
-# dsh-eia-guide-check
+# dsh-eia-guide-check — Verificação da folha de aplicabilidade das diretrizes de avaliação de impacto ambiental
+
+`dsh-eia-guide-check` lê uma folha de aplicabilidade de diretrizes de uma avaliação de impacto ambiental —o cabeçalho do projeto mais uma linha por elemento avaliado— e verifica a rastreabilidade dessa própria folha: se cada elemento indica a diretriz que lhe é aplicável, se o número da diretriz segue a forma publicada, se o estado da diretriz vem do vocabulário que você configurar, se está registado um método de avaliação ou uma norma aplicável, se nenhum elemento está registado duas vezes, se o cabeçalho declara o projeto e o tipo de documento de avaliação, e se não resta nenhum marcador de modelo por substituir na coluna da norma aplicável.
+
+## O que ele responde
+
+| Você pergunta | O que ele responde |
+|---|---|
+| Uma linha de elemento deixa vazios o nome e o número da diretriz. Isso é reportado? | Sim. `EG-001` reporta essa linha quando `guideName` e `guideCode` estão ambos vazios, porque a linha tem de indicar pelo menos um deles. Verifica apenas se uma diretriz é indicada, nunca se é a correta para esse elemento: o plugin não inclui qualquer catálogo de diretrizes nem associa elementos a diretrizes. |
+| O número da diretriz está escrito como `HJ 2.3`, sem ano. Isso é detetado? | Sim. `EG-002` verifica a forma «HJ número—ano de quatro dígitos», como em `HJ 2.3—2018`, pelo que um valor sem o ano de quatro dígitos não corresponde e é reportado linha a linha. Verifica apenas a forma: não que o número exista, não que esteja em vigor e não que corresponda ao nome ao lado. Uma célula `guideCode` vazia não é reportada aqui: os valores vazios ficam fora desta verificação de forma. |
+| A coluna de estado diz `现行`. Porque é que nunca foi verificada? | Porque a lista `values` de `EG-003` vem vazia, ou seja, o vocabulário de estados ainda não está configurado: a regra reporta-se a si própria em `skipped`, com o motivo de que esse vocabulário é da instituição, em vez de passar em silêncio. Depois de configurado, verifica apenas se o valor preenchido consta da lista, não se a diretriz está realmente em vigor. |
+| O método de avaliação está preenchido, mas a coluna da norma ainda diz `【待填】`. Isso é detetado? | `EG-004` exige apenas que um de `method` ou `standard` esteja preenchido, pelo que um método preenchido a satisfaz; não julga se o método é aplicável nem se a norma está correta. O marcador remanescente é reportado por `EG-007`, que procura na coluna da norma os termos configurados (`【`, `】`, `XXX`, `待填`, `TBD`, `示例` e semelhantes) e reporta o primeiro que encontra. Esses termos são ajustáveis, e uma célula de norma totalmente vazia não é reportada por nenhuma das duas regras. |
+| O elemento `地表水` está registado duas vezes, uma para qualidade da água e outra para sedimentos. O que acontece? | `EG-005` reporta o valor repetido de `element` e indica com que linha anterior coincide, porque a repetição impede saber que diretriz rege esse elemento. Compara apenas o texto sem espaços e o resultado exige confirmação humana: avaliar um mesmo elemento por meio é normal, por isso escreva o subelemento no nome do elemento em vez de apagar a linha. Se a folha não tiver coluna `element`, a regra reporta que não pôde ser executada em vez de passar em silêncio. |
+| O cabeçalho não traz o nome do projeto nem o tipo de documento de avaliação. O que acontece? | `EG-006` reporta que faltam ao cabeçalho `project` e `reportType`, porque o tipo de documento (`报告书`／`报告表`／`登记表`) determina que conjunto de requisitos se aplica. Verifica apenas que o cabeçalho os declare; não julga se a classificação do tipo está correta. |
+
+## Normas que segue
+
+| Documento | Número | Regras que o citam |
+|---|---|---|
+| 《环境影响评价技术导则》系列 | 各导则现行版本号本次未逐一核实 | EG-001, EG-002 |
+| 本机构环评质量管理口径（本机构配置） | 无统一标准（本条依据为本机构配置的状态口径） | EG-003 |
+| 《环境影响评价技术导则 总纲》 | HJ 2.1（现行版本号与条号本次未核实） | EG-004, EG-005, EG-007 |
+| 《建设项目环境影响评价分类管理名录》 | 现行版本与条号本次未核实 | EG-006 |
 
 **Boundary:** this plugin checks an **环评导则适用性核对表** for traceability — that each environmental element
 names its applicable guideline, that the guideline number follows its published form, that the guideline's status
