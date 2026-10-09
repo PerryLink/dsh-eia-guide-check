@@ -1,6 +1,14 @@
 # dsh-eia-guide-check — 环评导则适用性核对
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-eia-guide-check` 读取一份环境影响评价的导则适用性核对表——表头、加上每条评价要素一行——并核对这份核对表自身是否可追溯：每条要素是否指明适用导则、导则编号是否写成通用形式、导则状态是否取自本机构配置的取值、是否填写了评价方法或执行标准、要素是否重复登记、表头是否声明项目与环评文件类型、执行标准栏是否残留未替换的模板占位符。
+
+## 实际输出长什么样
+
+![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-demo.png)
+
+本插件对自己 `EG-001` 测试夹具的**真实输出**，不是示意图。规则库不伪造引文，因此每条发现都会同时写明所引条款，以及该条款原文本次未取得。
 
 ## 它回答什么问题
 

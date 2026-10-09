@@ -1,6 +1,14 @@
 # dsh-eia-guide-check — Verificación de la hoja de aplicabilidad de directrices de evaluación de impacto ambiental
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-eia-guide-check` lee una hoja de aplicabilidad de directrices de una evaluación de impacto ambiental —la cabecera del proyecto más una fila por elemento evaluado— y comprueba la trazabilidad de esa propia hoja: que cada elemento indique la directriz que le aplica, que el número de la directriz siga la forma publicada, que el estado de la directriz proceda del vocabulario que usted configure, que se registre un método de evaluación o una norma aplicable, que ningún elemento esté registrado dos veces, que la cabecera declare el proyecto y el tipo de documento de evaluación, y que no quede ningún marcador de plantilla sin sustituir en la columna de la norma aplicable.
+
+## Cómo se ve la salida
+
+![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-demo.png)
+
+Salida real de este plugin sobre su propio fixture de prueba `EG-001` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
 
