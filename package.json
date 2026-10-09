@@ -1,6 +1,6 @@
 {
   "name": "dsh-eia-guide-check",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "环评导则适用性核对（按要素、导则名称与执行标准核对台账自洽，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
