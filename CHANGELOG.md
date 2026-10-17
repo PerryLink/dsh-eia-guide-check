@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.8] - 2026-10-18
+
+### Fixed
+
+- READMEs no longer point at a `rules/evidence/` directory this pack does not ship; the four translations now link only to the English rule-sources section. Install is already on the first screen.
+
 ## [0.2.7] - 2026-10-18
 
 ### Changed
