@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-eia-guide-check-hero.png",
+    "kind": "hero",
+    "alt": "dsh-eia-guide-check terminal output",
+    "caption": "Real dsh-eia-guide-check checker output; 31 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-eia-guide-check-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-eia-guide-check terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
