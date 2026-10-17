@@ -4,6 +4,13 @@
 
 `dsh-eia-guide-check` lee una hoja de aplicabilidad de directrices de una evaluación de impacto ambiental —la cabecera del proyecto más una fila por elemento evaluado— y comprueba la trazabilidad de esa propia hoja: que cada elemento indique la directriz que le aplica, que el número de la directriz siga la forma publicada, que el estado de la directriz proceda del vocabulario que usted configure, que se registre un método de evaluación o una norma aplicable, que ningún elemento esté registrado dos veces, que la cabecera declare el proyecto y el tipo de documento de evaluación, y que no quede ningún marcador de plantilla sin sustituir en la columna de la norma aplicable.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-eia-guide-check
+dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
+```
+
 ## Cómo se ve la salida
 
 ![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-hero.png)
@@ -72,13 +79,6 @@ prediction model applies, or whether the conclusions hold.
 ## What it does
 
 La tabla de reglas, los campos y el comportamiento detallado están en [README.md](README.md#what-it-does) (versión principal en inglés). El plugin sólo enumera divergencias literales frente a las cláusulas citadas e indica en `skipped` cada comprobación que no pudo ejecutarse.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-eia-guide-check
-dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
-```
 
 ## Configuration
 

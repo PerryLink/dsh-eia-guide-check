@@ -4,6 +4,13 @@
 
 `dsh-eia-guide-check` reads one guideline-applicability sheet for an environmental impact assessment — the project header plus one row per assessed element — and checks that sheet's own traceability: that every element names its applicable guideline, that the guideline number follows the published form, that the guideline's status comes from the vocabulary you configure, that an assessment method or an applicable standard is recorded, that no element is registered twice, that the header declares the project and the report type, and that no unreplaced template placeholder survives in the standard column.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-eia-guide-check
+dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-hero.png)
@@ -83,13 +90,6 @@ per element — applies a versioned rule pack, and returns a report.
 | `EG-005` | elements are not double-registered | warn | principle |
 | `EG-006` | the sheet names its project and report type | warn | principle |
 | `EG-007` | the standard column holds no unreplaced placeholder | warn | principle |
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-eia-guide-check
-dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
-```
 
 ## Configuration
 

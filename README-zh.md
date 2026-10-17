@@ -4,6 +4,13 @@
 
 `dsh-eia-guide-check` 读取一份环境影响评价的导则适用性核对表——表头、加上每条评价要素一行——并核对这份核对表自身是否可追溯：每条要素是否指明适用导则、导则编号是否写成通用形式、导则状态是否取自本机构配置的取值、是否填写了评价方法或执行标准、要素是否重复登记、表头是否声明项目与环评文件类型、执行标准栏是否残留未替换的模板占位符。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-eia-guide-check
+dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-hero.png)
@@ -72,13 +79,6 @@ prediction model applies, or whether the conclusions hold.
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-eia-guide-check
-dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
-```
 
 ## Configuration
 

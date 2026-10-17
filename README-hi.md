@@ -4,6 +4,13 @@
 
 `dsh-eia-guide-check` पर्यावरण प्रभाव मूल्यांकन की एक दिशानिर्देश-प्रयोज्यता शीट पढ़ता है — परियोजना हेडर और प्रत्येक मूल्यांकित तत्व की एक पंक्ति — और उसी शीट की संदर्भ-योग्यता जाँचता है: क्या हर तत्व अपना लागू दिशानिर्देश बताता है, क्या दिशानिर्देश क्रमांक प्रकाशित रूप में लिखा है, क्या दिशानिर्देश की स्थिति आपके द्वारा कॉन्फ़िगर की गई शब्दावली से ली गई है, क्या मूल्यांकन विधि या लागू मानक दर्ज है, क्या कोई तत्व दो बार दर्ज नहीं है, क्या हेडर परियोजना और मूल्यांकन दस्तावेज़ का प्रकार घोषित करता है, और क्या मानक-कॉलम में कोई अपरिवर्तित टेम्पलेट प्लेसहोल्डर शेष नहीं है।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-eia-guide-check
+dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-hero.png)
@@ -72,13 +79,6 @@ prediction model applies, or whether the conclusions hold.
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-eia-guide-check
-dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
-```
 
 ## Configuration
 
