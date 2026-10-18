@@ -43,26 +43,23 @@ dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 
 **边界（中文译文，以英文原文为准）：** 本插件核对一份 **环评导则适用性核对表** 的可追溯性——每个环境要素是否指明适用导则，导则编号是否写成通用形式，导则状态是否取自你配置的取值口径，是否填写了评价方法或执行标准，要素是否重复登记，表头是否声明项目与环评文件类型，以及是否残留占位符。它**不**判定环境影响评价是否合规、评价等级是否正确、预测模型是否适用，也不判定其结论是否成立。
 
-> ### ⚠️ What this plugin deliberately cannot do
+> ### ⚠️ 本插件有意不能做的事（以英文原文为准）
 >
-> **It does not contain the guideline catalogue, and it does not map an element onto the guideline that should
-> govern it.** Because of that it **cannot find the most consequential error: using the wrong guideline for an
-> element.** Choosing between HJ 2.2, HJ 2.3, HJ 2.4, HJ 964 and the rest turns on the project's category and the
-> element in question, and confirming it means reading the classification list and each guideline's scope. This
-> limit is stated in the pack's header, in `EG-001`'s note, and in the troubleshooting section below.
+> **它不包含导则目录，也不把某个要素映射到应适用的导则。** 正因如此，它**无法发现后果最严重的错误：对某个要素使用了错误的导则。**
+> 在 HJ 2.2、HJ 2.3、HJ 2.4、HJ 964 及其他导则之间作选择，取决于项目的类别与所涉要素，而确认这
+> 一点意味着要阅读分类名录与每份导则的适用范围。这一限制写在规则包头部、`EG-001` 的 note 中，
+> 以及下文的故障排查一节。
 >
-> The 适用导则 column is therefore the register's own statement. Everything here checks what can be checked
-> mechanically: is it written down, does the number look like a guideline number, is the status one you
-> recognise, is a method or standard recorded.
+> 因此，“适用导则”一栏只是台账自身的陈述。这里的一切只核对能够机械核对的内容：是否写下来了、
+> 编号看起来是否像导则编号、状态是否为你所认可的、是否记录了方法或标准。
 >
-> **The plugin also ships no current-version table** — tracking which guidelines are in force and which have
-> been superseded means following the ministry's announcements, and the status vocabulary is yours to configure.
-> `EG-002` checks the *form* of a number (`HJ 2.3—2018`) and never whether that number exists, is current, or
-> matches the name next to it.
+> **本插件也不提供现行版本表**——跟踪哪些导则现行有效、哪些已被取代，意味着要跟进部委公告，
+> 而状态词汇表由你配置。`EG-002` 核对编号的*形式*（`HJ 2.3—2018`），从不核对编号是否存在、
+> 是否现行，或是否与旁边的名称相符。
 >
-> **Every `excerpt` in the rule pack says, in so many words, that the clause text was not obtained** — the
-> verification pass did not retrieve the guidelines' verbatim text, nor verify each one's current version.
-> When the texts are in hand, replace each `excerpt` with the real clause and raise `kind` to `direct`.
+> **规则包中的每一条 `excerpt` 都明确写着：本次未取得条款原文**——核验环节没有取得导则的逐字
+> 文本，也没有核实每一份导则的现行版本。取得文本后，应将每条 `excerpt` 替换为真实条款，并将
+> `kind` 提升为 `direct`。
 
 ## Compatibility
 
