@@ -41,12 +41,7 @@ dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 | 《环境影响评价技术导则 总纲》 | HJ 2.1（现行版本号与条号本次未核实） | EG-004, EG-005, EG-007 |
 | 《建设项目环境影响评价分类管理名录》 | 现行版本与条号本次未核实 | EG-006 |
 
-**Boundary:** this plugin checks an **环评导则适用性核对表** for traceability — that each environmental element
-names its applicable guideline, that the guideline number follows its published form, that the guideline's status
-comes from your vocabulary, that an assessment method or an applicable standard is recorded, that elements are
-not double-registered, that the sheet names its project and report type, and that no placeholder survives. It does
-**not** decide whether an environmental assessment is compliant, whether the assessment level is right, whether a
-prediction model applies, or whether the conclusions hold.
+**边界（中文译文，以英文原文为准）：** 本插件核对一份 **环评导则适用性核对表** 的可追溯性——每个环境要素是否指明适用导则，导则编号是否写成通用形式，导则状态是否取自你配置的取值口径，是否填写了评价方法或执行标准，要素是否重复登记，表头是否声明项目与环评文件类型，以及是否残留占位符。它**不**判定环境影响评价是否合规、评价等级是否正确、预测模型是否适用，也不判定其结论是否成立。
 
 > ### ⚠️ What this plugin deliberately cannot do
 >
