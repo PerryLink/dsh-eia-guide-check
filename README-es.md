@@ -15,13 +15,19 @@ dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 
 ## Cómo se ve la salida
 
-![Terminal demo of dsh-eia-guide-check: real output over its EG-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-hero.png)
+![Diagrama de flujo de dsh-eia-guide-check: documento → reglas → hallazgos.](docs/assets/dsh-eia-guide-check-flow.svg)
 
-![Animated terminal demo of dsh-eia-guide-check](https://raw.githubusercontent.com/PerryLink/dsh-eia-guide-check/main/docs/assets/dsh-eia-guide-check-demo.gif)
+*Resumen del flujo: documento → reglas → hallazgos. Los ejemplos siguientes usan la superficie de comandos real.*
+
 
 Salida real de este plugin sobre su propio fixture de prueba `EG-001` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
+
+### Ejemplos
+
+La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
+
 
 | Usted pregunta | Qué responde |
 |---|---|
