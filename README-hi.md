@@ -30,6 +30,35 @@ dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 नीचे दी गई तालिका उदाहरण-समुच्चय है: पहली पंक्ति विस्तृत केस है, बाकी संक्षिप्त केस हैं।
 
 
+#### विस्तृत आउटपुट
+
+**उपकरण** `eia_guide_check`
+
+**इनपुट**
+
+~~~json
+{"rows":[{"序号":"1","评价要素":"环境空气","导则名称":"","导则编号代码":"", ...}]}
+~~~
+ 
+**आउटपुट**
+
+~~~json
+{
+  "id": "dsh-eia-guide-check.EG-001.de09b5a6",
+  "ruleId": "EG-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "guideName"
+  },
+  "found": "第 1 行 guideName、guideCode 都为空",
+  "expected": "guideName、guideCode 至少应填写一项",
+  "fix": "补填适用导则名称与编号；本条只核对是否指明，不判断适用是否正确"
+}
+~~~
+
+*स्रोत `dsh-eia-guide-check/tests/fixtures/EG-001/EG-001-unsafe.json; dsh-eia-guide-check/tests/fixtures/EG-001/cases.json; dsh-eia-guide-check/rules/eia-guide-check.yaml; dsh-eia-guide-check/tests/index.test.ts`*
+
 | आपका सवाल | इसका जवाब |
 |---|---|
 | किसी तत्व की पंक्ति में दिशानिर्देश का नाम और क्रमांक दोनों खाली हैं। क्या यह दर्ज होता है? | हाँ। जब `guideName` और `guideCode` दोनों खाली हों, `EG-001` उस पंक्ति को दर्ज करता है, क्योंकि पंक्ति को इनमें से कम से कम एक बताना होता है। यह केवल देखता है कि दिशानिर्देश बताया गया है या नहीं, यह नहीं कि वह उस तत्व के लिए सही है: प्लगिन में दिशानिर्देशों की कोई सूची नहीं है और तत्व से दिशानिर्देश की मैपिंग नहीं की जाती। |

@@ -30,6 +30,35 @@ Saída real deste plugin sobre o seu próprio fixture de teste `EG-001` — não
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
 
+#### Saída detalhada
+
+**Ferramenta** `eia_guide_check`
+
+**Entrada**
+
+~~~json
+{"rows":[{"序号":"1","评价要素":"环境空气","导则名称":"","导则编号代码":"", ...}]}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-eia-guide-check.EG-001.de09b5a6",
+  "ruleId": "EG-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "guideName"
+  },
+  "found": "第 1 行 guideName、guideCode 都为空",
+  "expected": "guideName、guideCode 至少应填写一项",
+  "fix": "补填适用导则名称与编号；本条只核对是否指明，不判断适用是否正确"
+}
+~~~
+
+*Observado em `dsh-eia-guide-check/tests/fixtures/EG-001/EG-001-unsafe.json; dsh-eia-guide-check/tests/fixtures/EG-001/cases.json; dsh-eia-guide-check/rules/eia-guide-check.yaml; dsh-eia-guide-check/tests/index.test.ts`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | Uma linha de elemento deixa vazios o nome e o número da diretriz. Isso é reportado? | Sim. `EG-001` reporta essa linha quando `guideName` e `guideCode` estão ambos vazios, porque a linha tem de indicar pelo menos um deles. Verifica apenas se uma diretriz é indicada, nunca se é a correta para esse elemento: o plugin não inclui qualquer catálogo de diretrizes nem associa elementos a diretrizes. |

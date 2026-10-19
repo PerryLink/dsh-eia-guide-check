@@ -30,6 +30,35 @@ Salida real de este plugin sobre su propio fixture de prueba `EG-001` — no es 
 La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
 
+#### Salida detallada
+
+**Herramienta** `eia_guide_check`
+
+**Entrada**
+
+~~~json
+{"rows":[{"序号":"1","评价要素":"环境空气","导则名称":"","导则编号代码":"", ...}]}
+~~~
+ 
+**Salida**
+
+~~~json
+{
+  "id": "dsh-eia-guide-check.EG-001.de09b5a6",
+  "ruleId": "EG-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "guideName"
+  },
+  "found": "第 1 行 guideName、guideCode 都为空",
+  "expected": "guideName、guideCode 至少应填写一项",
+  "fix": "补填适用导则名称与编号；本条只核对是否指明，不判断适用是否正确"
+}
+~~~
+
+*Observado en `dsh-eia-guide-check/tests/fixtures/EG-001/EG-001-unsafe.json; dsh-eia-guide-check/tests/fixtures/EG-001/cases.json; dsh-eia-guide-check/rules/eia-guide-check.yaml; dsh-eia-guide-check/tests/index.test.ts`*
+
 | Usted pregunta | Qué responde |
 |---|---|
 | Una fila de elemento deja vacíos el nombre y el número de la directriz. ¿Se informa de ello? | Sí. `EG-001` informa de esa fila cuando `guideName` y `guideCode` están ambos vacíos, porque la fila debe indicar al menos uno de los dos. Solo comprueba que se indique una directriz, nunca si es la correcta para ese elemento: el plugin no incluye ningún catálogo de directrices ni asigna elementos a directrices. |

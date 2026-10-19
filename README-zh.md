@@ -30,6 +30,35 @@ dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
 
+#### 详细输出
+
+**工具** `eia_guide_check`
+
+**输入**
+
+~~~json
+{"rows":[{"序号":"1","评价要素":"环境空气","导则名称":"","导则编号代码":"", ...}]}
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-eia-guide-check.EG-001.de09b5a6",
+  "ruleId": "EG-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "guideName"
+  },
+  "found": "第 1 行 guideName、guideCode 都为空",
+  "expected": "guideName、guideCode 至少应填写一项",
+  "fix": "补填适用导则名称与编号；本条只核对是否指明，不判断适用是否正确"
+}
+~~~
+
+*来源 `dsh-eia-guide-check/tests/fixtures/EG-001/EG-001-unsafe.json; dsh-eia-guide-check/tests/fixtures/EG-001/cases.json; dsh-eia-guide-check/rules/eia-guide-check.yaml; dsh-eia-guide-check/tests/index.test.ts`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 某条要素行的适用导则名称与编号都是空的，会被报出吗？ | 会。`guideName` 与 `guideCode` 都为空时，`EG-001` 报出该行，因为这一行至少要指明其中一项。它只核对是否指明了导则，**不核对指明得对不对**：本插件不内置导则清单，也不做要素到导则的映射。 |

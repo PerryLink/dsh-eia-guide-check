@@ -28,6 +28,35 @@ dsh --profile <name> --dump-config | grep 'dsh-eia-guide-check'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `eia_guide_check`
+
+**Input**
+
+~~~json
+{"rows":[{"序号":"1","评价要素":"环境空气","导则名称":"","导则编号代码":"", ...}]}
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-eia-guide-check.EG-001.de09b5a6",
+  "ruleId": "EG-001",
+  "severity": "warn",
+  "locator": {
+    "row": 1,
+    "field": "guideName"
+  },
+  "found": "第 1 行 guideName、guideCode 都为空",
+  "expected": "guideName、guideCode 至少应填写一项",
+  "fix": "补填适用导则名称与编号；本条只核对是否指明，不判断适用是否正确"
+}
+~~~
+
+*Observed from `dsh-eia-guide-check/tests/fixtures/EG-001/EG-001-unsafe.json; dsh-eia-guide-check/tests/fixtures/EG-001/cases.json; dsh-eia-guide-check/rules/eia-guide-check.yaml; dsh-eia-guide-check/tests/index.test.ts`*
+
 | You ask | What it answers |
 |---|---|
 | One element row leaves both the guideline name and the guideline number blank. Is that reported? | Yes. `EG-001` reports the row when `guideName` and `guideCode` are both empty, because the row has to name at least one of them. It checks only whether a guideline is named, never whether the named guideline is the right one for that element: the plugin holds no guideline catalogue and does not map an element onto a guideline. |
