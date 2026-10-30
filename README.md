@@ -91,26 +91,11 @@ not double-registered, that the sheet names its project and report type, and tha
 **not** decide whether an environmental assessment is compliant, whether the assessment level is right, whether a
 prediction model applies, or whether the conclusions hold.
 
-> ### ⚠️ What this plugin deliberately cannot do
+> ### ⚠️ Read this before trusting a citation in the report
 >
-> **It does not contain the guideline catalogue, and it does not map an element onto the guideline that should
-> govern it.** Because of that it **cannot find the most consequential error: using the wrong guideline for an
-> element.** Choosing between HJ 2.2, HJ 2.3, HJ 2.4, HJ 964 and the rest turns on the project's category and the
-> element in question, and confirming it means reading the classification list and each guideline's scope. This
-> limit is stated in the pack's header, in `EG-001`'s note, and in the troubleshooting section below.
+> **`excerpt` status is per rule, not uniform.** Some rules quote the clause verbatim (`kind: direct`), some are derived from the principle of the cited articles (`kind: derived-from-principle`, capped at `warn`), and some use thresholds your institution configures (`kind: institutional-configuration`, capped at `info`). The pack never paraphrases a quotation: when the text was not obtained, the `excerpt` field says so and the reasoning lives in `note`; a test asserts that no rule claims a quotation it does not have. **For any rule still marked as not obtained, replace the `excerpt` with the real clause and raise `kind` to `direct` once the text is in hand.**
 >
-> The 适用导则 column is therefore the register's own statement. Everything here checks what can be checked
-> mechanically: is it written down, does the number look like a guideline number, is the status one you
-> recognise, is a method or standard recorded.
->
-> **The plugin also ships no current-version table** — tracking which guidelines are in force and which have
-> been superseded means following the ministry's announcements, and the status vocabulary is yours to configure.
-> `EG-002` checks the *form* of a number (`HJ 2.3—2018`) and never whether that number exists, is current, or
-> matches the name next to it.
->
-> **Every `excerpt` in the rule pack says, in so many words, that the clause text was not obtained** — the
-> verification pass did not retrieve the guidelines' verbatim text, nor verify each one's current version.
-> When the texts are in hand, replace each `excerpt` with the real clause and raise `kind` to `direct`.
+> The conclusion is the reviewer's: this plugin lists differences it can point to in the material and does not decide facts or compliance.
 
 ## Compatibility
 
