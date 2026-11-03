@@ -1,6 +1,6 @@
 # dsh-eia-guide-check — 环评导则适用性核对
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
