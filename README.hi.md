@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-dark.svg">
-  <img src="docs/assets/dsh-eia-guide-check-flow-light.svg" width="100%" alt="dsh-eia-guide-check डेटा प्रवाह: प्रयोज्यता शीट (परियोजना हेडर + rows[]) → eia_guide_check उपकरण → rules/eia-guide-check.yaml नियम-पैक (EG-001..EG-007) → issues[] + skipped[] रिपोर्ट → समीक्षक का निर्णय; कॉन्फ़िगरेशन rulesFile / disabledRules / onlyRules / timeoutMs से आता है">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-eia-guide-check-hero-en-light.webp" width="100%" alt="dsh-eia-guide-check: बाईं ओर प्लगइन का नाम, दो मूल्य-पंक्तियाँ और यह टिप्पणी है कि यह केवल शीट पढ़ता है और अनुपालन पर निर्णय नहीं देता; दाईं ओर साथ आए नियम-पैक के प्रमाण-स्तर हैं — direct: 0 नियम (पैक में कोई शब्दशः पाठ नहीं; हर excerpt यही बताता है), derived-from-principle: 6 नियम (EG-001, EG-002, EG-004, EG-005, EG-006, EG-007, सीमा warn), institutional-configuration: 1 नियम (EG-003, सीमा info, values: [] के साथ आता है, इसलिए skipped में जाता है); पाद में नमूना रन के issues[] 1 (warn) और skipped[] 1 हैं।">
 </picture>
 
 # dsh-eia-guide-check
@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-eia-guide-check
 - **किसके लिए**: EIA तैयार करने वाले और पर्यावरण अधिकारी; कमांड लाइन की ज़रूरत नहीं — सामग्री चैट में दे दें।
 - **आप क्या देते हैं**: वह मूल सामग्री जिस पर जाँच चलती है (एक तालिका, रजिस्टर या दस्तावेज़); मूल कभी नहीं बदला जाता। Excel को पहले JSON/YAML में बदला जा सकता है, चैट में भी अगर प्लेटफ़ॉर्म सक्षम हो।
 - **आप क्या पाते हैं**: «कौन-सी पंक्ति, कौन-सा कॉलम, क्या कम है, कैसे सुधारें» की सूची; हर वह जाँच जो नहीं चल सकी, `skipped` में कारण के साथ दर्ज होती है।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-eia-guide-check-flow-v5-light.svg" width="100%" alt="dsh-eia-guide-check की संरचना (कॉलम → नियम वायरिंग बोर्ड): एक applicability शीट (JSON/YAML) के 8 कैनोनिकल कॉलम उन 7 नियमों से जुड़े हैं जो उन्हें पढ़ते हैं — guideName और guideCode EG-001 में, guideCode EG-002 में भी, guideStatus EG-003 में, method और standard EG-004 में, standard EG-007 में भी, element EG-005 में, project और reportType EG-006 में; हर नियम पर उसकी गंभीरता-सीमा अंकित है (छह पर warn, एक पर info)। केवल दो निकास हैं: जो मिला वह issues[] में (उदाहरण: पंक्ति 1 में guideName और guideCode खाली), जो नहीं चल सका वह कारण के साथ skipped[] में (EG-003, values अनसेट), और जो नियम चला पर कुछ न मिला वह किसी में नहीं; खाली सूची का अर्थ स्वीकृति नहीं, निर्णय समीक्षक के पास रहता है।">
+</picture>
 
 ## तीन चरणों में शुरुआत
 

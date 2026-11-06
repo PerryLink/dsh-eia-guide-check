@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-dark.svg">
-  <img src="docs/assets/dsh-eia-guide-check-flow-light.svg" width="100%" alt="dsh-eia-guide-check data flow: applicability sheet (project header + rows[]) → eia_guide_check tool → rules/eia-guide-check.yaml rule pack (EG-001..EG-007) → issues[] + skipped[] report → reviewer verdict; config flows in via rulesFile / disabledRules / onlyRules / timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-eia-guide-check-hero-en-light.webp" width="100%" alt="dsh-eia-guide-check: the left column carries the plugin name, two value lines and the note that it reads the sheet only and never rules on compliance; the right side is the bundled rule pack's evidence tiers — direct: 0 rules (no verbatim clause in the pack; every excerpt says so), derived-from-principle: 6 rules (EG-001, EG-002, EG-004, EG-005, EG-006, EG-007, ceiling warn), institutional-configuration: 1 rule (EG-003, ceiling info, shipped with values: [] so it lands in skipped); the footer shows the sample run's issues[] 1 (warn) and skipped[] 1.">
 </picture>
 
 # dsh-eia-guide-check
@@ -43,6 +43,11 @@ It does not decide whether an environmental assessment is compliant, whether the
 - **Who it is for**: EIA preparers and environmental officers; no command line required — hand the material over in chat.
 - **What you give it**: the source material the check works on (a table, register, or document); the original is never modified. Excel can be converted to JSON/YAML first, in chat if the platform supports it.
 - **What you get back**: a list of "which row, which column, what is missing, how to fix it"; every check that could not run is listed in `skipped` with its reason.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-eia-guide-check-flow-v5-light.svg" width="100%" alt="dsh-eia-guide-check structure (column → rule wiring board): the 8 canonical columns of one applicability sheet (JSON/YAML) are wired to the 7 rules that read them — guideName and guideCode into EG-001, guideCode also into EG-002, guideStatus into EG-003, method and standard into EG-004, standard also into EG-007, element into EG-005, project and reportType into EG-006; every rule carries its severity ceiling (warn on six, info on one). There are only two exits: a finding enters issues[] (the sample: row 1 with guideName and guideCode blank), a rule that cannot run enters skipped[] with its reason (EG-003, values unset), and a rule that ran clean enters neither; an empty issue list is not a pass and the verdict stays with the reviewer.">
+</picture>
 
 ## Three-step setup
 

@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-dark.svg">
-  <img src="docs/assets/dsh-eia-guide-check-flow-light.svg" width="100%" alt="Flujo de datos de dsh-eia-guide-check: hoja de aplicabilidad (cabecera del proyecto + rows[]) → herramienta eia_guide_check → paquete de reglas rules/eia-guide-check.yaml (EG-001..EG-007) → informe issues[] + skipped[] → decisión del revisor; la configuración entra por rulesFile / disabledRules / onlyRules / timeoutMs">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-eia-guide-check-hero-en-light.webp" width="100%" alt="dsh-eia-guide-check: la columna izquierda lleva el nombre del plugin, dos líneas de valor y la nota de que solo lee la hoja y no dicta cumplimiento; a la derecha están los niveles de evidencia del paquete de reglas incluido — direct: 0 reglas (no hay ningún texto literal en el paquete; cada excerpt lo indica), derived-from-principle: 6 reglas (EG-001, EG-002, EG-004, EG-005, EG-006, EG-007, techo warn), institutional-configuration: 1 regla (EG-003, techo info, con values: [] de fábrica, por lo que va a skipped); el pie muestra la ejecución de ejemplo: issues[] 1 (warn) y skipped[] 1.">
 </picture>
 
 # dsh-eia-guide-check
@@ -43,6 +43,11 @@ No decide si la evaluación de impacto ambiental cumple la normativa, si el nive
 - **Para quién**: redactores de EIA y responsables ambientales; no hace falta línea de comandos —entrega el material en el chat.
 - **Qué le das**: el material de origen sobre el que trabaja la comprobación (una tabla, un registro o un documento); el original nunca se modifica. Excel puede convertirse antes a JSON/YAML, en el chat si la plataforma lo admite.
 - **Qué recibes**: una lista de «qué fila, qué columna, qué falta y cómo corregirlo»; cada comprobación que no pudo ejecutarse aparece en `skipped` con su motivo.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-eia-guide-check-flow-v5-light.svg" width="100%" alt="Estructura de dsh-eia-guide-check (tablero de conexión columna → regla): las 8 columnas canónicas de una hoja de aplicabilidad (JSON/YAML) se conectan con las 7 reglas que las leen — guideName y guideCode a EG-001, guideCode también a EG-002, guideStatus a EG-003, method y standard a EG-004, standard también a EG-007, element a EG-005, project y reportType a EG-006; cada regla lleva su techo de gravedad (warn en seis, info en una). Solo hay dos salidas: lo encontrado va a issues[] (el ejemplo: fila 1 con guideName y guideCode vacíos), lo que no pudo ejecutarse va a skipped[] con su motivo (EG-003, values sin configurar), y una regla que se ejecutó sin hallazgos no entra en ninguna; una lista vacía no es un aprobado y la conclusión queda en el revisor.">
+</picture>
 
 ## Instalación en tres pasos
 

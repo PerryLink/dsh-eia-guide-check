@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-dark.svg">
-  <img src="docs/assets/dsh-eia-guide-check-flow-light.svg" width="100%" alt="dsh-eia-guide-check 数据流：核对表（项目表头 + rows[]）→ eia_guide_check 工具 → rules/eia-guide-check.yaml 规则包（EG-001..EG-007）→ issues[] + skipped[] 报告 → 审核人裁决；配置经 rulesFile / disabledRules / onlyRules / timeoutMs 注入">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-eia-guide-check-hero-zh-light.webp" width="100%" alt="dsh-eia-guide-check 配图：左列是插件名、两行价值句与「只读核对表、不判合规、结论留给审核人」的说明；右侧是随包规则包的证据分级——direct 一档 0 条（本包没有逐字条文，excerpt 如实写明），derived-from-principle 六条（EG-001、EG-002、EG-004、EG-005、EG-006、EG-007，严重级上限 warn），institutional-configuration 一条（EG-003，上限 info，出厂 values 为空即 skipped）；页脚是示例运行的 issues[] 1 条（warn）与 skipped[] 1 条。">
 </picture>
 
 # dsh-eia-guide-check
@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-eia-guide-check
 - **给谁用**：环评编制人员、环保管理岗；不用懂命令行，在对话里把材料交给它即可。
 - **你交什么**：这项核对用到的原始材料（表格、清单或文书）；不改原件。Excel 可先转成 JSON/YAML，对话里也能代转。
 - **它交什么**：一份「哪一行、哪一栏、差什么、怎么补」的清单；没能执行的检查逐条列入 `skipped` 并写明原因。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-eia-guide-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-eia-guide-check-flow-v5-light.svg" width="100%" alt="dsh-eia-guide-check 结构图（栏目→规则接线板）：一份核对表（JSON/YAML）的 8 个规范栏目与 7 条规则按读取关系连线——guideName 与 guideCode 进 EG-001，guideCode 另进 EG-002，guideStatus 进 EG-003，method 与 standard 进 EG-004，standard 另进 EG-007，element 进 EG-005，project 与 reportType 进 EG-006；每条规则标出严重级上限（warn 六条、info 一条）。出口只有两个：命中的进 issues[]（示例第 1 行 guideName、guideCode 都为空），跑不了的进 skipped[] 并写明原因（EG-003 的 values 未配置），跑过而未命中的规则两栏都不进；空清单不等于通过，结论留给审核人。">
+</picture>
 
 ## 三步上手
 
