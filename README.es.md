@@ -49,6 +49,11 @@ No decide si la evaluación de impacto ambiental cumple la normativa, si el nive
   <img src="docs/assets/dsh-eia-guide-check-flow-v5-light.svg" width="100%" alt="Estructura de dsh-eia-guide-check (tablero de conexión columna → regla): las 8 columnas canónicas de una hoja de aplicabilidad (JSON/YAML) se conectan con las 7 reglas que las leen — guideName y guideCode a EG-001, guideCode también a EG-002, guideStatus a EG-003, method y standard a EG-004, standard también a EG-007, element a EG-005, project y reportType a EG-006; cada regla lleva su techo de gravedad (warn en seis, info en una). Solo hay dos salidas: lo encontrado va a issues[] (el ejemplo: fila 1 con guideName y guideCode vacíos), lo que no pudo ejecutarse va a skipped[] con su motivo (EG-003, values sin configurar), y una regla que se ejecutó sin hallazgos no entra en ninguna; una lista vacía no es un aprobado y la conclusión queda en el revisor.">
 </picture>
 
+![dsh-eia-guide-check: ejecución real de terminal](docs/assets/dsh-eia-guide-check-demo.gif)
+
+*Repetición animada de una ejecución real registrada en este repositorio.*
+
+
 ## Instalación en tres pasos
 
 1. **Instala** (elige un canal):

@@ -49,6 +49,11 @@ dsh plugin --profile <name> add dsh-eia-guide-check
   <img src="docs/assets/dsh-eia-guide-check-flow-v5-light.svg" width="100%" alt="dsh-eia-guide-check की संरचना (कॉलम → नियम वायरिंग बोर्ड): एक applicability शीट (JSON/YAML) के 8 कैनोनिकल कॉलम उन 7 नियमों से जुड़े हैं जो उन्हें पढ़ते हैं — guideName और guideCode EG-001 में, guideCode EG-002 में भी, guideStatus EG-003 में, method और standard EG-004 में, standard EG-007 में भी, element EG-005 में, project और reportType EG-006 में; हर नियम पर उसकी गंभीरता-सीमा अंकित है (छह पर warn, एक पर info)। केवल दो निकास हैं: जो मिला वह issues[] में (उदाहरण: पंक्ति 1 में guideName और guideCode खाली), जो नहीं चल सका वह कारण के साथ skipped[] में (EG-003, values अनसेट), और जो नियम चला पर कुछ न मिला वह किसी में नहीं; खाली सूची का अर्थ स्वीकृति नहीं, निर्णय समीक्षक के पास रहता है।">
 </picture>
 
+![dsh-eia-guide-check का असली टर्मिनल रन](docs/assets/dsh-eia-guide-check-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (एक चैनल चुनें):
