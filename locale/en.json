@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "EIA guideline check",
-    "description": "环评导则适用性核对（按要素、导则名称与执行标准核对台账自洽，仅提示差异，不作出定性结论）"
+    "description": "Check an EIA guideline-applicability sheet for traceability — you get a list of which row, which column, and what to fix; the verdict stays with the reviewer."
   }
 }
